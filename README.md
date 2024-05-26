@@ -5,13 +5,18 @@ Learning Open_CV to use it later for ML / DL Applications
 
 ### Setting Up the Environment
 
+1. ssetting up a venv
 ```sh
 $ python -m venv open_cv_project
 ```
 
-Click OK on the VSC prompt
+2. Click OK on the VSC prompt
 
+3. Activate the venv
 ```sh
 $ .\open_cv_project\Scripts\activate
 $ pip install opencv-python mediapipe
 ```
+
+#### Issues with Python VSC Extension
+Switched to Pre-Release verions and everything works really smooth
