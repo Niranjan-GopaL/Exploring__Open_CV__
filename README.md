@@ -2,6 +2,12 @@
 Learning Open_CV to use it later for ML / DL Applications
 
 
+### Goals :-
+
+- Finish HandDetection Module Before this Month
+- Quality of Life : Powershell Customization
+
+
 
 ### Setting Up the Environment
 
@@ -19,4 +25,4 @@ $ pip install opencv-python mediapipe
 ```
 
 #### Issues with Python VSC Extension
-Switched to Pre-Release verions and everything works really smooth
+> Switched to Pre-Release verions and everything works really smooth
