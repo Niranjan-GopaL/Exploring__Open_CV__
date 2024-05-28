@@ -62,7 +62,7 @@ while 0:
 
 
 
-# FRAME RATE CALCULATION and Displaying it
+# FRAME RATE CALCULATION ; ACCESSING EACH LANDMARK
 prev_time = 0
 curr_time = 0
 
@@ -83,16 +83,32 @@ while 1:
     
     if many_hands :
         for  each_hand_lms in many_hands :
+            # getting information of EACH HAND : id_no ; landmarks
+            # todo :- what is (id,lm) pair - it seems we can access a landmark through ID but ALL THE INFORMATION IS STORED in lm
+            for id, lm in enumerate(each_hand_lms.landmark) :
+                # print(id,lm)  # this gives x,y,z co-ordniate in 
+                # DECIMAL PLACES (ratio of co-ordinate's x value AND image windows' width)
+                h, w, c = img.shape
+                cx, cy = int(lm.x * w), int(lm.y * h)
+                # print(id, cx, cy)
+                print(f'Landmark id : {id}, X :{cx}, Y : {cy}')
+
+                # Accessing individual LANDMARK THROUGH id
+                if id == 4:
+                    cv2.circle(img, (cx, cy), 15, (255, 0, 255), cv2.FILLED)
+                
+            
             mpDraw.draw_landmarks(img, each_hand_lms , mpHands.HAND_CONNECTIONS)
 
     # Calculating the fps 
     curr_time = time.time()
     fps = 1 / (curr_time - prev_time)
     prev_time = curr_time
-    print(f'FPS -----------> {round(fps,3)}')
  
     # Render it in the IMAGE instead of CONSOLE 
-    # cv2.putText(img, )
+    # print(f'FPS -----------> {round(fps,3)}')
+
+    cv2.putText(img, str(round(fps,2)) , (10,70) , cv2.FONT_HERSHEY_SCRIPT_COMPLEX , 3 , (255,0,255) )
             
     cv2.imshow("Image",img)
     cv2.waitKey(1)
