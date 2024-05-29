@@ -10,9 +10,10 @@ window_tile = "After Resizing"
 
 curr_time = prev_time = 0
 
+# given a VideoCapture Object, this fn returns' it's resizes `img: MatLike`
 def resize_saviour(capture) :
     ret, frame = capture.read()
-    if not ret : return [ 0 ]
+    if not ret : return (False, [0])
 
     # Get the current frame size
     height, width, _ = frame.shape
@@ -24,7 +25,7 @@ def resize_saviour(capture) :
     dim = (new_width, new_height)
     resized = cv2.resize(frame, dim, interpolation = cv2.INTER_AREA)
 
-    return resized
+    return (True, resized)
 
 
 
@@ -58,35 +59,40 @@ mpPose = mp.solutions.pose
 pose = mpPose.Pose()
 
 while 1:
-    success, img = cap.read()
+    # success, img = cap.read() # first we need to resize this image 
+    success, resized_img = resize_saviour(cap)
+    if not success : break
 
+    # todo :- what does this do ? media_pipe wants image to be in RGB for it to detect the poses
+    imgRGB = cv2.cvtColor(resized_img, cv2.COLOR_BGR2RGB)
+    results = pose.process(imgRGB) 
     # print(results.pose_landmarks)
-
-    resize_fn_return_img = resize_saviour(cap)
-    if not resize_fn_return_img.any() : break
-    
-    imgRGB = cv2.cvtColor(resize_fn_return_img, cv2.COLOR_BGR2RGB)
-    results = pose.process(imgRGB)
     
     if results.pose_landmarks:
-        # mpDraw.draw_landmarks(img, results.pose_landmarks )
-        mpDraw.draw_landmarks(resize_fn_return_img, results.pose_landmarks, mpPose.POSE_CONNECTIONS)
+        # # We can see just the dots
+        # mpDraw.draw_landmarks(img, results.pose_landmarks )                                       
+
+        # We can see connections also 
+        mpDraw.draw_landmarks(resized_img, results.pose_landmarks, mpPose.POSE_CONNECTIONS)         
+
+        # https://ai.google.dev/edge/mediapipe/solutions/vision/pose_landmarker   <-- markings for all landmarks
         for id, lm in enumerate(results.pose_landmarks.landmark):
-            h, w, _ = resize_fn_return_img.shape
+            h, w, _ = resized_img.shape
             print(id, lm)
             cx, cy = int(lm.x * w), int(lm.y * h)
-            cv2.circle(resize_fn_return_img, (cx, cy), 5, (255, 0, 0), cv2.FILLED)
+            if id == 20 :
+                # id number 20 will be in blue dot
+                cv2.circle(resized_img, (cx, cy), 5, (255, 0, 0), cv2.FILLED)
 
     # fps calc
     curr_time = time.time()
     fps = 1 / (curr_time - prev_time)
     prev_time = curr_time
 
-
-    cv2.putText(resize_fn_return_img, str(round(fps,2)) , (0,0) , cv2.FONT_HERSHEY_PLAIN , 3 , (255,0,255) )
+    cv2.putText(resized_img, str(round(fps,2)) , (0,0) , cv2.FONT_HERSHEY_PLAIN , 3 , (255,0,255) )
 
     # Display the resized frame
-    cv2.imshow(window_tile , resize_fn_return_img )
+    cv2.imshow(window_tile , resized_img )
 
     # 10ms delay
     k = cv2.waitKey(10) & 0xff
