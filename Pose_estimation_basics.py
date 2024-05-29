@@ -75,7 +75,8 @@ while 1:
         # We can see connections also 
         mpDraw.draw_landmarks(resized_img, results.pose_landmarks, mpPose.POSE_CONNECTIONS)         
 
-        # https://ai.google.dev/edge/mediapipe/solutions/vision/pose_landmarker   <-- markings for all landmarks
+        # https://ai.google.dev/edge/mediapipe/solutions/vision/pose_landmarker   <-- markings for all landmarks : feature on body
+        # 0: nose  ; 1: left_eye_inner ; 2: left_eye
         for id, lm in enumerate(results.pose_landmarks.landmark):
             h, w, _ = resized_img.shape
             print(id, lm)
