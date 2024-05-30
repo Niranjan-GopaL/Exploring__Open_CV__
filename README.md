@@ -3,11 +3,12 @@ Learning Open_CV to use it later for ML / DL Applications
 
 
 ### Goals :-
+- Finish HandDetection Module Before this Month  [Almost_Done]
+- Quality of Life : Powershell Customization     
 
-- Finish HandDetection Module Before this Month
-- Quality of Life : Powershell Customization
-
-
+### Ideas :-
+To use Face_Dection + Gestures to control various things 
+- Open Browser
 
 ### Setting Up the Environment
 
