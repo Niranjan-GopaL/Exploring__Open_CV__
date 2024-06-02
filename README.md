@@ -3,13 +3,20 @@ Learning Open_CV to use it later for ML / DL Applications
 
 
 ### Goals :-
+- Finish HandDetection Module Before this Month  [Almost_Done]
+- Quality of Life : Powershell Customization     
 
-- Finish HandDetection Module Before this Month
-- Quality of Life : Powershell Customization
+### Ideas :-
+To use Face_Dection + Gestures to control various things 
+- Open Browser
+
+### Setting up environmetn for TensorFLow
+
+!pip install tensorflow==2.4.1 tensorflow-gpu==2.4.1 opencv-python matplotlib
 
 
 
-### Setting Up the Environment
+### Setting Up the Environment for Open_CV
 
 1. ssetting up a venv
 ```sh
