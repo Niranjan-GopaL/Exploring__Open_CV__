@@ -2,5 +2,14 @@ face-recog
 data
 lfw
 lfw.tgz
+<<<<<<< HEAD
 lfw_kaggle_interesting_way_of_storing_cleaning_Data
 .ipynb_checkpoints
+=======
+<<<<<<< HEAD
+lfw_kaggle_interesting_way_of_storing_cleaning_Data
+.ipynb_checkpoints
+=======
+lfw_kaggle_interesting_way_of_storing_cleaning_Data
+>>>>>>> 1561bc0 (lots of file ( data ) git_ignored)
+>>>>>>> 51e7ccc36471fafab22d3e101b4a90152752b1cb
