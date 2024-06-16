@@ -1,0 +1,27 @@
+import os
+
+# Get current working directory
+os.getcwd()
+
+# Setup paths
+POS_PATH = os.path.join('data', 'positive')
+NEG_PATH = os.path.join('data', 'negative')
+ANC_PATH = os.path.join('data', 'anchor')
+
+# Make the directories
+os.makedirs(POS_PATH)
+os.makedirs(NEG_PATH)
+os.makedirs(ANC_PATH)
+
+# data
+#   |----- positive
+#   |----- negetive
+#   |----- anchor
+
+os.listdir('lfw')
+# Move LFW Images to the following repository data/negative
+for directory in os.listdir('lfw'):
+    for file in os.listdir(os.path.join('lfw', directory)):
+        EX_PATH = os.path.join('lfw', directory, file)
+        NEW_PATH = os.path.join(NEG_PATH, file)
+        os.replace(EX_PATH, NEW_PATH)
